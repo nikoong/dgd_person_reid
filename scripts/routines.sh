@@ -56,9 +56,10 @@ train_model() {
   local exp=$1
   local dataset=$2
   local pretrained_model=$3
+  local log_name=$4
 
   local solver=${MODELS_DIR}/${exp}/${dataset}_solver.prototxt
-  local log=${LOGS_DIR}/${exp}/${dataset}.log
+  local log=${LOGS_DIR}/${exp}/${dataset}-${log_name}-`date +%Y-%m-%d-%H-%M`.log
   local trained_model=$(get_trained_model ${exp} ${dataset})
 
   # Make directories.
@@ -67,11 +68,11 @@ train_model() {
 
   # Training
   if [[ $# -eq 2 ]]; then
-    GLOG_logtostderr=1 mpirun -n 2 ${CAFFE_DIR}/build/tools/caffe train \
-      -solver ${solver} -gpu 0,1 2>&1 | tee ${log}
+    GLOG_logtostderr=1  ${CAFFE_DIR}/build/tools/caffe train \
+      -solver ${solver} -gpu 0 2>&1 | tee ${log}
   else
-    GLOG_logtostderr=1 mpirun -n 2 ${CAFFE_DIR}/build/tools/caffe train \
-      -solver ${solver} -weights ${pretrained_model} -gpu 0,1 2>&1 | tee ${log}
+    GLOG_logtostderr=1  ${CAFFE_DIR}/build/tools/caffe train \
+      -solver ${solver} -weights ${pretrained_model} -gpu 0 2>&1 | tee ${log}
   fi
 }
 
@@ -84,20 +85,27 @@ extract_features() {
   else
     local blob=fc7_bn
   fi
-
+  #local result_dir=${RESULTS_DIR}/${exp}/${dataset}_${weights_name}_${blob}
   local result_dir=$(get_result_dir ${exp} ${dataset} ${trained_model})
   rm -rf ${result_dir}
   mkdir -p ${result_dir}
 
   # Extract train, val, test probe, and test gallery features.
   for subset in train val test_probe test_gallery; do
-    echo "Extracting ${subset} set"
+    echo "Extracting ${dataset}/${subset} set"
     local num_samples=$(wc -l ${DB_DIR}/${dataset}/${subset}.txt | awk '{print $1}')
     local num_samples=$((num_samples + 1))
     local num_iters=$(((num_samples + 99) / 100))
     local model=$(mktemp)
+   
+  #########################edit   edit  edit###################################
+    #sed -e "s/\${dataset}/${dataset}/g; s/\${subset}/${subset}/g" \
+    #  ${MODELS_DIR}/exfeat_template.prototxt > ${model}
+    #echo "exfeat_template" ${MODELS_DIR}/exfeat_template.prototxt
     sed -e "s/\${dataset}/${dataset}/g; s/\${subset}/${subset}/g" \
-      ${MODELS_DIR}/exfeat_template.prototxt > ${model}
+      ${MODELS_DIR}/exfeat_template_triplet_1.prototxt > ${model}
+    echo "exfeat_template" ${MODELS_DIR}/${MODELS_DIR}/exfeat_template_triplet_1.prototxt
+  ################################################################################
     ${CAFFE_DIR}/build/tools/extract_features \
       ${trained_model} ${model} ${blob},label \
       ${result_dir}/${subset}_features_lmdb,${result_dir}/${subset}_labels_lmdb \

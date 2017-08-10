@@ -33,6 +33,8 @@ echo "Formatting i-LIDS ..."
 tar xf $RAW/i-LIDS.tar.gz -C $RAW/
 python2 data/format_ilids.py $RAW/i-LIDS $EXP/datasets/ilids
 
-echo "Formatting Shinpuhkan ..."
-unzip -q -d $RAW/ $RAW/Shinpuhkan2014dataset.zip
-python2 data/format_shinpuhkan.py $RAW/Shinpuhkan2014dataset $EXP/datasets/shinpuhkan
+
+#echo "Formatting Shinpuhkan ..."
+#unzip -q -d $RAW/ $RAW/Shinpuhkan2014dataset.zip
+#python2 data/format_shinpuhkan.py $RAW/Shinpuhkan2014dataset $EXP/datasets/shinpuhkan
+

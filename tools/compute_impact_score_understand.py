@@ -3,20 +3,21 @@ import os
 import os.path as osp
 import numpy as np
 import google.protobuf as pb
-from argparse import ArgumentParser
 
-#from utils import *
+from argparse import ArgumentParser
+from utils import *
+import pdb 
 
 
 #if 'external/caffe/python' not in sys.path:
-#    sys.path.insert(0, 'external/caffe/python')
+ #   sys.path.insert(0, 'external/caffe/python')
 import caffe
-from caffe.proto.caffe_pb2 import NetParameter
+#from caffe.proto.caffe_pb2 import NetParameter
 
 
 def parse_prototxt(model_file, layer_name):
     with open(model_file) as fp:
-        net = NetParameter()
+        net = caffe.proto.caffe_pb2.NetParameter()
         pb.text_format.Parse(fp.read(), net)
     for i, layer in enumerate(net.layer):
         if layer.name != layer_name: continue
@@ -34,19 +35,20 @@ def main(args):
     caffe.set_mode_gpu()
     blob, next_layer = parse_prototxt(args.model, args.layer)
     net = caffe.Net(args.model, args.weights, caffe.TEST)
+    #pdb.set_trace() 
     # Channelwise for conv
     impact = np.zeros(net.blobs[blob].shape[1])
     for i in xrange(args.num_iters):
-        print i
         net.forward()
         f = net.blobs[blob].data.copy()
-        loss = net.blobs['loss'].data.copy()
-        print i,"_in_",args.num_iters
+        loss = net.blobs['(automatic)'].data.copy()
+	print i,"_in_",args.num_iters
         for n in xrange(f.shape[1]):
+	    #pdb.set_trace() 
             net.blobs[blob].data[...] = f.copy()
             net.blobs[blob].data[:, n] = 0
             net.forward(start=next_layer)
-            delta = net.blobs['loss'].data - loss
+            delta = net.blobs['(automatic)'].data - loss
             impact[n] += delta.sum()
     # Normalize
     if args.normalize:

@@ -1,0 +1,73 @@
+cuhk03
+top-1      80.9%
+top-5      95.1%
+top-10     97.3%
+top-20     99.0%
+
+cuhk01
+top-1      70.1%
+top-5      88.5%
+top-10     93.1%
+top-20     96.4%
+
+prid
+top-1      53.0%
+top-5      80.0%
+top-10     84.0%
+top-20     89.0%
+
+viper
+top-1      27.8%
+top-5      50.6%
+top-10     63.3%
+top-20     74.7%
+
+3dpes
+top-1      58.9%
+top-5      78.7%
+top-10     85.3%
+top-20     91.5%
+
+ilids
+top-1      43.7%
+top-5      73.0%
+top-10     83.2%
+top-20     92.7%
+
+###去掉mirror的检测结果###
+cuhk03
+top-1      81.4%
+top-5      95.2%
+top-10     97.4%
+top-20     99.1%
+
+cuhk01
+top-1      70.4%
+top-5      88.6%
+top-10     93.0%
+top-20     96.3%
+
+prid
+top-1      55.0%
+top-5      79.0%
+top-10     84.0%
+top-20     90.0%
+
+viper
+top-1      29.1%
+top-5      52.2%
+top-10     65.2%
+top-20     74.4%
+
+3dpes
+top-1      54.4%
+top-5      77.2%
+top-10     85.6%
+top-20     91.2%
+
+ilids
+top-1      44.0%
+top-5      71.7%
+top-10     83.2%
+top-20     93.6%
+

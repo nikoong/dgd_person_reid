@@ -4,28 +4,19 @@
 # Change to the project root directory. Assume this file is at scripts/.
 cd $(dirname ${BASH_SOURCE[0]})/../
 
+:<<BLOCK
+BLOCK
 source scripts/routines.sh
 
-exp='dgd'
-log_name=ft_each_data_dgd
-# Make a model for inference (treat BN as fixed affine layer)
-# to fast the neuron impact scores computation
-pretrained_model=$(get_trained_model ${exp} jstl)
+exp='dgd_triplet_ft'
+log_name=dgd_triplet_ft
+trained_model=$(get_trained_model dgd jstl)
 
-python2 ${CAFFE_DIR}/python/gen_bn_inference.py \
-  models/jstl/jstl_deploy.prototxt ${pretrained_model}
-inference_model=$(get_trained_model_for_inference jstl jstl)
-echo ${inference_model}
-echo ${pretrained_model}
-:<<BLOCK'
-# Compute neuron impact scores (NIS) for each dataset
-for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
-  compute_neuron_impact_scores ${dataset} ${inference_model}
-done
+echo ${trained_model}
 
 # Fine-tune on each dataset
-for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
-  train_model ${exp} ${dataset} ${pretrained_model} ${log_name}
+for dataset in  3dpes ilids cuhk01 prid viper cuhk03; do
+  train_model ${exp} ${dataset} ${trained_model} ${log_name}
 done
 
 # Extract features on all datasets
@@ -42,5 +33,6 @@ for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
   python2 eval/metric_learning.py ${result_dir}
   echo
 done
-BLOCK'
+
+
 

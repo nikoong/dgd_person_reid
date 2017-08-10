@@ -1,0 +1,267 @@
+直接训练
+cuhk03
+top-1      18.8%
+top-5      50.0%
+top-10     69.1%
+top-20     86.6%
+
+cuhk01
+top-1       4.9%
+top-5      15.0%
+top-10     22.4%
+top-20     33.1%
+
+prid
+top-1       4.0%
+top-5       7.0%
+top-10      9.0%
+top-20     19.0%
+
+viper
+top-1       6.6%
+top-5      14.6%
+top-10     22.5%
+top-20     30.7%
+
+3dpes
+top-1      16.5%
+top-5      30.6%
+top-10     39.3%
+top-20     54.4%
+
+ilids
+top-1      18.1%
+top-5      37.2%
+top-10     50.5%
+top-20     69.4%
+
+
+
+固定softmaxloss训练好的参数，加上一层全连接，只训练全连接。n样例随机选一个
+cuhk03
+top-1      81.4%
+top-5      95.5%
+top-10     97.7%
+top-20     99.1%
+
+cuhk01
+top-1      70.3%
+top-5      88.3%
+top-10     93.1%
+top-20     96.2%
+
+prid
+top-1      54.0%
+top-5      80.0%
+top-10     85.0%
+top-20     90.0%
+
+viper
+top-1      27.5%
+top-5      50.6%
+top-10     62.7%
+top-20     74.7%
+
+3dpes
+top-1      52.4%
+top-5      78.6%
+top-10     85.9%
+top-20     92.3%
+
+ilids
+top-1      44.0%
+top-5      73.3%
+top-10     84.6%
+top-20     92.9%
+
+固定softmaxloss训练好的参数，加norm，加上一层全连接，只训练全连接。n样例随机选五个
+
+top-1      82.7%
+top-5      96.4%
+top-10     98.7%
+top-20     99.7%
+
+cuhk01
+top-1      66.7%
+top-5      87.2%
+top-10     92.1%
+top-20     95.8%
+
+prid
+top-1      47.0%
+top-5      74.0%
+top-10     83.0%
+top-20     91.0%
+
+viper
+top-1      28.2%
+top-5      51.3%
+top-10     65.8%
+top-20     77.5%
+
+3dpes
+top-1      53.2%
+top-5      78.8%
+top-10     87.0%
+top-20     94.2%
+
+ilids
+top-1      46.9%
+top-5      71.5%
+top-10     84.5%
+top-20     92.5%
+
+
+固定softmaxloss训练好的参数，加上一层全连接，和norm。triplet只训练全连接。hard_num=1，rand_num=4。lr = 0.25
+cuhk03
+top-1      79.2%
+top-5      94.2%
+top-10     97.0%
+top-20     98.8%
+
+cuhk01
+top-1      65.7%
+top-5      87.4%
+top-10     92.5%
+top-20     95.9%
+
+prid
+top-1      50.0%
+top-5      72.0%
+top-10     81.0%
+top-20     85.0%
+
+viper
+top-1      28.5%
+top-5      51.3%
+top-10     59.2%
+top-20     70.3%
+
+3dpes
+top-1      52.2%
+top-5      75.7%
+top-10     83.6%
+top-20     90.4%
+
+ilids
+top-1      42.8%
+top-5      66.8%
+top-10     77.5%
+top-20     91.2%
+
+
+
+固定softmaxloss训练好的参数，加上一层全连接，和norm。triplet只训练全连接。hard_num=1，rand_num=4。lr = 0.25.iter = 30000
+
+cuhk03
+top-1      82.3%
+top-5      96.0%
+top-10     98.4%
+top-20     99.6%
+
+cuhk01
+top-1      66.4%
+top-5      87.5%
+top-10     92.4%
+top-20     96.0%
+
+prid
+top-1      46.0%
+top-5      69.0%
+top-10     83.0%
+top-20     89.0%
+
+viper
+top-1      27.8%
+top-5      54.1%
+top-10     62.3%
+top-20     72.5%
+
+3dpes
+top-1      58.1%
+top-5      80.7%
+top-10     88.7%
+top-20     94.4%
+
+ilids
+top-1      46.1%
+top-5      70.1%
+top-10     81.5%
+top-20     91.7%
+
+
+难例选取改为0.5，发现3dpes数据集效果提高，其他的都下降
+cuhk03
+top-1      82.1%
+top-5      95.9%
+top-10     98.3%
+top-20     99.6%
+
+cuhk01
+top-1      65.8%
+top-5      87.1%
+top-10     92.1%
+top-20     95.8%
+
+prid
+top-1      46.0%
+top-5      74.0%
+top-10     82.0%
+top-20     85.0%
+
+viper
+top-1      26.9%
+top-5      52.2%
+top-10     63.9%
+top-20     71.8%
+
+3dpes
+top-1      55.8%
+top-5      81.2%
+top-10     90.0%
+top-20     94.9%
+
+ilids
+top-1      44.3%
+top-5      69.9%
+top-10     81.0%
+top-20     92.1%
+
+
+base_lr=0.0001 前面层lr=0改为lr=1
+cuhk03
+top-1      83.4%
+top-5      96.6%
+top-10     98.6%
+top-20     99.7%
+
+cuhk01
+top-1      66.6%
+top-5      87.4%
+top-10     92.5%
+top-20     96.0%
+
+prid
+top-1      44.0%
+top-5      69.0%
+top-10     81.0%
+top-20     88.0%
+
+viper
+top-1      26.6%
+top-5      54.4%
+top-10     63.9%
+top-20     74.7%
+
+3dpes
+top-1      52.7%
+top-5      79.3%
+top-10     86.7%
+top-20     92.9%
+
+ilids
+top-1      44.4%
+top-5      73.7%
+top-10     81.6%
+top-20     92.1%
+

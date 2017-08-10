@@ -3,10 +3,10 @@ import lmdb
 import numpy as np
 from argparse import ArgumentParser
 
-from utils import *
+#from utils import *
 
-if 'external/caffe/python' not in sys.path:
-    sys.path.insert(0, 'external/caffe/python')
+#if 'external/caffe/python' not in sys.path:
+#    sys.path.insert(0, 'external/caffe/python')
 from caffe.proto.caffe_pb2 import Datum
 
 

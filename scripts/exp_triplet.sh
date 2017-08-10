@@ -6,19 +6,20 @@ cd $(dirname ${BASH_SOURCE[0]})/../
 
 source scripts/routines.sh
 
-exp='jstl'
-log_name=test_once
-pretrained_model=external/exp/snapshots/jstl/jstl_iter_26000.caffemodel
+exp='triplet'
+trained_model=external/exp/snapshots/triplet/jstl_iter_10000.caffemodel
+#trained_model=external/exp/snapshots/triplet/fc9+norm+ran_num=1.4/jstl_iter_10000.caffemodel
+blob=fc9
+
 # Train JSTL model
-#train_model ${exp} jstl
-train_model ${exp} jstl ${pretrained_model} ${log_name}
+train_model ${exp} jstl ${trained_model}
 trained_model=$(get_trained_model ${exp} jstl)
 
 echo ${trained_model}
 
 # Extract features on all datasets
 for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
-  extract_features ${exp} ${dataset} ${trained_model}
+  extract_features ${exp} ${dataset} ${trained_model} ${blob}
 done
 
 # Evaluate performance

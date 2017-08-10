@@ -8,8 +8,8 @@ from argparse import ArgumentParser
 
 from utils import *
 
-if 'external/caffe/python' not in sys.path:
-    sys.path.insert(0, 'external/caffe/python')
+#if 'external/caffe/python' not in sys.path:
+#    sys.path.insert(0, 'external/caffe/python')
 import caffe
 from caffe.proto.caffe_pb2 import Datum
 

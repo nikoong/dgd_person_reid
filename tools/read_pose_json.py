@@ -1,4 +1,7 @@
 #-*-coding:utf-8-*-
+#从re-id数据集读图片。根据posepoint文件，截取上下半身，分别放到图像路径。
+
+
 import os
 import json as js
 import numpy as np
@@ -7,6 +10,9 @@ data_path = '/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/
 pose_path = '/home/nikoong/dataset/re-id_pose/'
 datasets = ["prid","viper",'3dpes','ilids','cuhk01','cuhk03']
 #datasets = ["prid"]
+
+
+
 #得到一个文件夹里所有文件路径的列表，未排序
 def getfiles(data_path):
     all_files = []
@@ -33,8 +39,7 @@ for dataset in datasets:
             downpath=pose_path + dataset +'/down'+ cam+'/' + all_image_files[i].split('/')[-1]
             #print uppath
             #print downpath
-            img = cv2.imread(all_image_files[i])  
-                 
+            img = cv2.imread(all_image_files[i])                   
             with open(all_json_files[i],"r") as f:
                 data = js.load(f)
                 people = data['people']

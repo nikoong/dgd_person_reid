@@ -10,11 +10,11 @@ exp='up_jstl' #exp='down_jstl'
 log_name=up_once
 part=up
 
-#pretrained_model=external/exp/snapshots/jstl/jstl_iter_26000.caffemodel
+pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
 
 # Train JSTL model
 #train_model ${exp} jstl
-train_model ${exp} jstl ${log_name}
+train_model ${exp} jstl ${pretrained_model} ${log_name}
 trained_model=$(get_trained_model ${exp} jstl)
 echo ${trained_model}
 

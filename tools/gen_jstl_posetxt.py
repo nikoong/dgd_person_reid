@@ -32,83 +32,72 @@ def read_dataset(txt_path):
         files.append(onefile)
     return files,ids
 
+#疑问：val应该是train的一个子集，
+#
+
 #得到id的set
 #将原id和新id用dic一一对应
+
+#for
 #将原id转成新id
+#if dont have ,del
+
 max_id ={}
 for dataset in datasets:
-    idlist=[]
     data = 0;
-    for subset in subsets:
-        files, personids = read_dataset(pose_path+dataset+'/up/'+subset+'.txt')
-        idlist.extend(personids)                   
-    idlist = set(idlist)
-    data = len(idlist)    
+    files, personids = read_dataset(pose_path+dataset+'/up/train.txt')
+    data = len(set(personids))    
     max_id[dataset]=data
-print max_id
+#print max_id
 
-
-'''
-#得到每个数据集的max_id,计算出需要id增加多少
-max_id = {}
+#['prid','viper','3dpes','ilids','cuhk01','cuhk03']
+#将原id和新id用dic一一对应
 add = {}
-for dataset in datasets:
-    max_id_ = []
-    for subset in subsets:
-        files, personids = read_dataset(pose_path+dataset+'/up/'+subset+'.txt')
-        max_id_.append(max(personids))
-    max_id[dataset] = max(max_id_) #每个数据集id都是从0开始的
-
-add['cuhk03'] = max_id['prid'] + max_id['viper'] + max_id['3dpes'] + max_id['ilids'] +max_id['cuhk01'] + 5
-add['cuhk01'] = max_id['prid'] + max_id['viper'] + max_id['3dpes'] + max_id['ilids'] +4
-add['ilids'] = max_id['prid'] + max_id['viper'] + max_id['3dpes'] + 3
-add['3dpes'] = max_id['prid'] + max_id['viper'] + 2
-add['viper'] = max_id['prid'] + 1
+add['cuhk03'] = max_id['prid'] + max_id['viper'] + max_id['3dpes'] + max_id['ilids'] +max_id['cuhk01']
+add['cuhk01'] = max_id['prid'] + max_id['viper'] + max_id['3dpes'] + max_id['ilids']
+add['ilids'] = max_id['prid'] + max_id['viper'] + max_id['3dpes']
+add['3dpes'] = max_id['prid'] + max_id['viper'] 
+add['viper'] = max_id['prid'] 
 add['prid'] = 0
 
+print add
+
+datasetid = {}
+for dataset in datasets:
+    old2new={}
+    files, personids = read_dataset(pose_path+dataset+'/up/train.txt')
+    personids = list(set(personids))
+    personids.sort()
+    for i in range(len(personids)):
+        old2new[personids[i]]=i + add[dataset]
+    datasetid[dataset] = old2new
 
 
 
+    
+#train.txt
+for part in parts:
+    savepath = pose_path +'jstl/'+ part +'/train.txt'
+    newtxtlist=[]
+    for dataset in datasets:    	
+    	files, personids = read_dataset(pose_path + dataset +'/'+ part +'/train.txt')
+    	for i in range(len(personids)):
+    		newid = str(datasetid[dataset][personids[i]])
+    		newtxtlist.append(files[i]+' '+ newid)
+    newtxtlist.sort()
+    list2txt(newtxtlist,savepath)	
 
-#将数据集id合并
-for subset in ['train','val']:
-    for part in parts:
-        jstllist=[]
-        savepath = pose_path +'jstl/'+ part +'/'+ subset + '.txt'
-        for dataset in datasets:
-            files, personids = read_dataset(pose_path + dataset +'/'+ part +'/'+ subset +'.txt')
-            newids =[ i + add[dataset] for i in personids ]
-            for i in range(len(files)):
-                line = files[i] +' '+ str(newids[i])
-                jstllist.append(line)
-        jstllist.sort()
-        list2txt(jstllist,savepath)
-        print 'max id is',max(newids)
-'''
-            
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         
-
+#val.txt
+for part in parts:
+    savepath = pose_path +'jstl/'+ part +'/val.txt'
+    newtxtlist=[]
+    for dataset in datasets:    	
+    	files, personids = read_dataset(pose_path + dataset +'/'+ part +'/val.txt')
+    	for i in range(len(personids)):
+    		if datasetid[dataset].has_key(personids[i]):
+    		    newid = str(datasetid[dataset][personids[i]])
+    		    newtxtlist.append(files[i]+' '+ newid)
+    		else:
+    			print dataset,personids[i]
+    newtxtlist.sort()
+    list2txt(newtxtlist,savepath)	

@@ -67,7 +67,7 @@ train_model() {
   mkdir -p $(dirname ${trained_model})
 
   # Training
-  if [[ $# -eq 2 ]]; then
+  if [[ $# -eq 3 ]]; then
     GLOG_logtostderr=1  ${CAFFE_DIR}/build/tools/caffe train \
       -solver ${solver} -gpu 0 2>&1 | tee ${log}
   else
@@ -106,6 +106,44 @@ extract_features() {
       ${MODELS_DIR}/exfeat_template_triplet_1.prototxt > ${model}
     echo "exfeat_template" ${MODELS_DIR}/${MODELS_DIR}/exfeat_template_triplet_1.prototxt
   ################################################################################
+    ${CAFFE_DIR}/build/tools/extract_features \
+      ${trained_model} ${model} ${blob},label \
+      ${result_dir}/${subset}_features_lmdb,${result_dir}/${subset}_labels_lmdb \
+      ${num_iters} lmdb GPU 0
+    python2 tools/convert_lmdb_to_numpy.py \
+      ${result_dir}/${subset}_features_lmdb ${result_dir}/${subset}_features.npy \
+      --truncate ${num_samples}
+    python2 tools/convert_lmdb_to_numpy.py \
+      ${result_dir}/${subset}_labels_lmdb ${result_dir}/${subset}_labels.npy \
+      --truncate ${num_samples}
+  done
+}
+
+extract_parts_features() {
+  local exp=$1
+  local dataset=$2
+  local trained_model=$3
+  local part=$4  
+  if [[ $# -eq 4 ]]; then
+    local blob=$5
+  else
+    local blob=fc7_bn
+  fi
+  #local result_dir=${RESULTS_DIR}/${exp}/${dataset}_${weights_name}_${blob}
+  local result_dir=$(get_result_dir ${exp} ${dataset} ${trained_model})
+  rm -rf ${result_dir}
+  mkdir -p ${result_dir}
+
+  # Extract train, val, test probe, and test gallery features.
+  for subset in train val test_probe test_gallery; do
+    echo "Extracting ${dataset}/${subset} set"
+    local num_samples=$(wc -l ${DB_DIR}/${dataset}/${subset}.txt | awk '{print $1}')
+    local num_samples=$((num_samples + 1))
+    local num_iters=$(((num_samples + 99) / 100))
+    local model=$(mktemp)
+    sed -e "s/\${dataset}/${dataset}/g; s/\${subset}/${subset}/g; s/\${part}/${part}/g"\
+      ${MODELS_DIR}/exfeat_parts_template.prototxt > ${model}
+    echo "exfeat_template" ${MODELS_DIR}/exfeat_template.prototxt
     ${CAFFE_DIR}/build/tools/extract_features \
       ${trained_model} ${model} ${blob},label \
       ${result_dir}/${subset}_features_lmdb,${result_dir}/${subset}_labels_lmdb \

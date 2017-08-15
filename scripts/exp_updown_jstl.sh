@@ -10,6 +10,7 @@ exp='up_jstl' #exp='down_jstl'
 log_name=up_once
 part=up
 
+#pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
 pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
 
 # Train JSTL model
@@ -21,7 +22,7 @@ echo ${trained_model}
 
 # Extract features on all datasets
 for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
-  extract_features ${exp} ${dataset} ${trained_model} ${part}
+  extract_parts_features ${exp} ${dataset} ${trained_model} ${part}
 done
 
 # Evaluate performance

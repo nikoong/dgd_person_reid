@@ -124,7 +124,7 @@ extract_parts_features() {
   local dataset=$2
   local trained_model=$3
   local part=$4  
-  if [[ $# -eq 4 ]]; then
+  if [[ $# -eq 5 ]]; then
     local blob=$5
   else
     local blob=fc7_bn

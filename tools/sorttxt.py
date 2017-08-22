@@ -35,7 +35,9 @@ def read_dataset(txt_path):
 
 savepath = pose_path +'jstl/up/train.txt'
 newline = txt2list(savepath)
-newline.sort(key =lambda newline : int(newline.split(' ')[1]) )
+
+#lambda¼ò»¯´úÂë
+newline.sort(key =lambda line : int(line.split(' ')[1]) )
 #random.shuffle(newline)
 list2txt(newline,'/home/nikoong/dataset/re-id_pose/jstl/up/train.txt')
 

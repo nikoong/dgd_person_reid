@@ -6,10 +6,11 @@ cd $(dirname ${BASH_SOURCE[0]})/../
 
 source scripts/routines.sh
 
-exp='up_jstl' #exp='down_jstl'
-log_name=up_once
-part=up
 
+part=down 
+log_name=down_once
+
+exp=$part'_jstl'
 #pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
 pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
 

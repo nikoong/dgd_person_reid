@@ -99,12 +99,12 @@ extract_features() {
     local model=$(mktemp)
    
   #########################edit   edit  edit###################################
-    #sed -e "s/\${dataset}/${dataset}/g; s/\${subset}/${subset}/g" \
-    #  ${MODELS_DIR}/exfeat_template.prototxt > ${model}
-    #echo "exfeat_template" ${MODELS_DIR}/exfeat_template.prototxt
     sed -e "s/\${dataset}/${dataset}/g; s/\${subset}/${subset}/g" \
-      ${MODELS_DIR}/exfeat_template_triplet_1.prototxt > ${model}
-    echo "exfeat_template" ${MODELS_DIR}/${MODELS_DIR}/exfeat_template_triplet_1.prototxt
+      ${MODELS_DIR}/exfeat_template.prototxt > ${model}
+    echo "exfeat_template" ${MODELS_DIR}/exfeat_template.prototxt
+    #sed -e "s/\${dataset}/${dataset}/g; s/\${subset}/${subset}/g" \
+    #  ${MODELS_DIR}/exfeat_template_triplet_1.prototxt > ${model}
+    #echo "exfeat_template" ${MODELS_DIR}/${MODELS_DIR}/exfeat_template_triplet_1.prototxt
   ################################################################################
     ${CAFFE_DIR}/build/tools/extract_features \
       ${trained_model} ${model} ${blob},label \

@@ -3,6 +3,7 @@
 #将多个数据集的txt，合并成一个的txt。id累加
 #jstl只需要train.txt和val.txt
 import random
+import os
 
 pose_path = '/home/nikoong/dataset/re-id_pose/'
 datasets = ['prid','viper','3dpes','ilids','cuhk01','cuhk03']
@@ -84,7 +85,8 @@ for part in parts:
     	for i in range(len(personids)):
     		newid = str(datasetid[dataset][personids[i]])
     		newtxtlist.append(files[i]+' '+ newid)
-    newtxtlist.sort()
+    #newtxtlist.sort()
+    random.shuffle(newtxtlist)
     list2txt(newtxtlist,savepath)	
 
 #val.txt
@@ -99,5 +101,40 @@ for part in parts:
     		    newtxtlist.append(files[i]+' '+ newid)
     		else:
     			print dataset,personids[i]
-    newtxtlist.sort()
+    #newtxtlist.sort()
+    random.shuffle(newtxtlist)
     list2txt(newtxtlist,savepath)	
+
+
+#因为原全身图片数据集的id和jstl_up数据集id不相同
+#所以从up数据集生成新的全身数据集
+
+for dataset in ['prid','viper','3dpes','ilids','cuhk01','cuhk03']:
+    whole_dir = txtpath = pose_path + dataset +'/whole_body'
+    if not os.path.exists(whole_dir):
+        os.makedirs(whole_dir)
+    for file in ['test_gallery.txt','test_probe.txt','train.txt','val.txt']:
+        up_txt_path = pose_path + dataset +'/up/'+ file
+        whole_txt_path = pose_path + dataset +'/whole_body/'+ file
+        uplist = txt2list(up_txt_path)
+        wholelist = []
+        for line in uplist:
+            oldstr = 're-id_pose/'+ dataset +'/up/' 
+            newstr = 're-id/'+ dataset +'/'        
+            wholelist.append(line.replace(oldstr,newstr))
+        list2txt(wholelist,whole_txt_path)
+
+for dataset in ['jstl']:
+    whole_dir = txtpath = pose_path + dataset +'/whole_body'
+    if not os.path.exists(whole_dir):
+        os.makedirs(whole_dir)
+    for file in ['train.txt','val.txt']:
+        up_txt_path = pose_path + dataset +'/up/'+ file
+        whole_txt_path = pose_path + dataset +'/whole_body/'+ file
+        uplist = txt2list(up_txt_path)
+        wholelist = []
+        for line in uplist:
+            newline = line.replace('re-id_pose','re-id')
+            newline = newline.replace('up/','')           
+            wholelist.append(newline)
+        list2txt(wholelist,whole_txt_path)

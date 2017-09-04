@@ -13,9 +13,7 @@ pretrained_model=external/exp/snapshots/jstl/jstl_iter_26000.caffemodel
 #train_model ${exp} jstl
 train_model ${exp} jstl ${pretrained_model} ${log_name}
 trained_model=$(get_trained_model ${exp} jstl)
-
-echo ${trained_model}
-
+#trained_model=external/exp/snapshots/whole_body_jstl/jstl_iter_55000.caffemodel
 # Extract features on all datasets
 for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
   extract_features ${exp} ${dataset} ${trained_model}

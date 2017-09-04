@@ -7,16 +7,17 @@ cd $(dirname ${BASH_SOURCE[0]})/../
 source scripts/routines.sh
 
 
-part=down 
-log_name=down_once
+part=whole_body 
+log_name=whole_body_once
 
 exp=$part'_jstl'
 #pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
-pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/Pretrained_models/jstl_iter_20000.caffemodel
+
 
 # Train JSTL model
-#train_model ${exp} jstl
-train_model ${exp} jstl ${pretrained_model} ${log_name}
+
+#train_model ${exp} jstl ${pretrained_model} ${log_name}
+#train_model ${exp} jstl ${log_name}
 trained_model=$(get_trained_model ${exp} jstl)
 echo ${trained_model}
 

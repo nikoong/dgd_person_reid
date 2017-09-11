@@ -7,8 +7,8 @@ cd $(dirname ${BASH_SOURCE[0]})/../
 source scripts/routines.sh
 
 exp='jstl'
-log_name=train_again
-#pretrained_model=external/exp/snapshots/jstl/jstl_iter_26000.caffemodel
+log_name=train_lr0.05
+pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/snapshots/jstl/train_adjst_iter_30000.caffemodel
 # Train JSTL model
 #train_model ${exp} jstl
 train_model ${exp} jstl ${pretrained_model} ${log_name}

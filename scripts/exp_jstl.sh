@@ -7,11 +7,11 @@ cd $(dirname ${BASH_SOURCE[0]})/../
 source scripts/routines.sh
 
 exp='jstl'
-log_name=train_lr0.05
-pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/snapshots/jstl/train_adjst_iter_30000.caffemodel
+log_name=train_ploy0.1
+#pretrained_model=/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/snapshots/jstl/train_adjst_iter_30000.caffemodel
 # Train JSTL model
-#train_model ${exp} jstl
-train_model ${exp} jstl ${pretrained_model} ${log_name}
+train_model ${exp} jstl ${log_name}
+#train_model ${exp} jstl ${pretrained_model} 
 trained_model=$(get_trained_model ${exp} jstl)
 # Extract features on all datasets
 for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do

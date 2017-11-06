@@ -6,24 +6,15 @@ source scripts/routines.sh
 
 
 exp=triplet_test
-iter="iter_10000"
+iter="_triplet_10000_fc7_bn"
 echo $exp
 
 
-:<<EEEE
-trained_model=external/exp/snapshots/whole_body_jstl/jstl_iter_20000.caffemodel
+trained_model=external/exp/snapshots/triplet/triplet_10000.caffemodel
 # Extract features on all datasets
-for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
-  extract_features ${exp} ${dataset} ${trained_model}
+for dataset in cuhk03; do
+  extract_features_triplet ${exp} ${dataset} ${trained_model}
 done
-EEEE
-
-trained_model=/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/snapshots/triplet/triplet_10000.caffemodel
-# Extract features on all datasets
-for dataset in cuhk03 cuhk01 prid viper 3dpes ilids; do
-  extract_features ${exp} ${dataset} ${trained_model}
-done
-
 
 
 # Evaluate performance

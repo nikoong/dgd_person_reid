@@ -1,0 +1,1 @@
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00636_00007.jpg 636

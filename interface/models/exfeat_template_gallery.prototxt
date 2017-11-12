@@ -8,8 +8,8 @@ layer {
   top: "data" 
   top: "label"
   image_data_param {
-    batch_size: ${batch_size}
-    source: "${source}"
+    batch_size: 50
+    source: "/home/nikoong/Algorithm_test/dgd_person_reid/interface/txt/gallery.txt"
     new_height: 144
     new_width: 56
   }

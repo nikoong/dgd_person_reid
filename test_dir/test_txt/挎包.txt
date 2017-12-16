@@ -1,0 +1,10 @@
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00052_00000.jpg 52
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00119_00000.jpg 119
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00126_00000.jpg 126
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00163_00000.jpg 163
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00292_00000.jpg 292
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00349_00009.jpg 349
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00355_00001.jpg 355
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00363_00000.jpg 363
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00445_00005.jpg 445
+/home/nikoong/Algorithm_test/dgd_person_reid/external/exp/datasets/cuhk03/cam_0/00463_00000.jpg 463

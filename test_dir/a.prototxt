@@ -1,0 +1,20 @@
+name: "Extract_Features_Template"
+
+##################################### data #####################################
+
+layer { 
+  name: "data" 
+  type: "ImageData" 
+  top: "data" 
+  top: "label"
+  image_data_param {
+    batch_size: ${batch_size}
+    source: "${txt_path}"
+    new_height: 144
+    new_width: 56
+  }
+  transform_param { 
+    #mirror: true 
+    mean_value: 102 mean_value: 102 mean_value: 101 
+  }
+}
